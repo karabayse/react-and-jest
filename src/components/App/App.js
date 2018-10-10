@@ -18,7 +18,7 @@ class App extends Component {
     // this.handleNameChange = this.handleNameChange.bind(this);
     // this.handleCityChange = this.handleCityChange.bind(this);
     // code above no longer needed due to currying
-    this.handleClick = this.handleClick.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleNameChange(event) {
@@ -67,7 +67,8 @@ class App extends Component {
   //     });
   // }
 
-  handleClick() {
+  handleSubmit(event) {
+    event.preventDefault();
     console.log(this.state.user);
     this.setState({
       user: {
@@ -84,11 +85,11 @@ class App extends Component {
         <Header />
         <Instructions />
 
-        <p>
+        <form onSubmit={ this.handleSubmit }>
           <input value={ this.state.user.name } onChange={ this.handleChangeFor('name') } />
           <input value={ this.state.user.city } onChange={ this.handleChangeFor('city') } />
-          <button onClick={ this.handleClick }>Submit</button>
-        </p>
+          <input type='submit' value='Submit' />
+        </form>
         <p>
           { this.state.user.name } is from { this.state.user.city }
         </p>
