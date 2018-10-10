@@ -4,7 +4,7 @@ class Instructions extends Component {
   render() {
     return (
       <p className="App-intro">
-        To get started, enter your name and city
+        Enter your name, city, and click Submit
       </p>
     );
   }
