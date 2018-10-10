@@ -15,8 +15,10 @@ class App extends Component {
       }
     };
     // makes 'this' in handleChange the same as 'this' here in the constructor
-    this.handleNameChange = this.handleNameChange.bind(this);
-    this.handleCityChange = this.handleCityChange.bind(this);
+    // this.handleNameChange = this.handleNameChange.bind(this);
+    // this.handleCityChange = this.handleCityChange.bind(this);
+    // code above no longer needed due to currying
+    this.handleClick = this.handleClick.bind(this);
   }
 
   handleNameChange(event) {
@@ -49,10 +51,30 @@ class App extends Component {
       this.setState({
         user: {
           ...this.state.user,
-          city: event.target.value,
+          [propertyName]: event.target.value,
         }
       });
     }
+  }
+
+  // CURRYING  ->  simpler; same result as above
+  // handleChangeFor = propertyName => event => {
+  //     this.setState({
+  //       user: {
+  //         ...this.state.user,
+  //         [propertyName]: event.target.value,
+  //       }
+  //     });
+  // }
+
+  handleClick() {
+    console.log(this.state.user);
+    this.setState({
+      user: {
+        name: '',
+        city: '',
+      }
+    })
   }
 
   render() {
@@ -63,8 +85,9 @@ class App extends Component {
         <Instructions />
 
         <p>
-          <input onChange={ this.handleNameChange } />
-          <input onChange={ this.handleChangeFor('city') } />
+          <input value={ this.state.user.name } onChange={ this.handleChangeFor('name') } />
+          <input value={ this.state.user.city } onChange={ this.handleChangeFor('city') } />
+          <button onClick={ this.handleClick }>Submit</button>
         </p>
         <p>
           { this.state.user.name } is from { this.state.user.city }
